@@ -14,12 +14,18 @@
       padding: 24px 16px;
       background: #0f1012;
     }
-    .frame {
-      position: relative;
+    .wrap {
       width: 100%;
       max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+    .frame {
+      width: 100%;
       aspect-ratio: 9 / 16;
-      max-height: calc(100dvh - 48px);
+      max-height: calc(100dvh - 90px);
       border-radius: 16px;
       overflow: hidden;
       background: #000;
@@ -31,51 +37,24 @@
       object-fit: cover;
       display: block;
     }
-    button {
-      position: absolute;
-      right: 14px;
-      bottom: 14px;
-      width: 44px;
-      height: 44px;
-      border: 0;
-      border-radius: 50%;
-      background: rgba(0, 0, 0, 0.55);
-      color: #fff;
-      cursor: pointer;
-      display: grid;
-      place-items: center;
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+    .credit {
+      font: 14px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      color: #9a9aa2;
+      text-align: center;
     }
-    button:hover { background: rgba(0, 0, 0, 0.75); }
-    button svg { width: 22px; height: 22px; }
+    .credit a { color: #d6d6dc; text-decoration: none; border-bottom: 1px solid #55565c; }
+    .credit a:hover { color: #fff; border-color: #fff; }
   </style>
 </head>
 <body>
-  <div class="frame">
-    <video id="v" src="video.mp4" poster="poster.jpg"
-           autoplay muted loop playsinline preload="auto"></video>
-    <button id="sound" aria-label="Turn sound on">
-      <svg id="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-           stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M11 5 6 9H2v6h4l5 4V5z"/>
-        <line x1="23" y1="9" x2="17" y2="15"/>
-        <line x1="17" y1="9" x2="23" y2="15"/>
-      </svg>
-    </button>
+  <div class="wrap">
+    <div class="frame">
+      <video src="video.mp4" poster="poster.jpg"
+             autoplay muted loop playsinline preload="auto"></video>
+    </div>
+    <p class="credit">
+      <a href="https://www.instagram.com/reel/DfU9Z-4FDTD/" target="_blank" rel="noopener">Fu Shuang</a>
+    </p>
   </div>
-  <script>
-    const v = document.getElementById('v');
-    const btn = document.getElementById('sound');
-    const icon = document.getElementById('icon');
-    const muted = '<path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>';
-    const on = '<path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/>';
-    btn.addEventListener('click', () => {
-      v.muted = !v.muted;
-      if (!v.muted) v.play();
-      icon.innerHTML = v.muted ? muted : on;
-      btn.setAttribute('aria-label', v.muted ? 'Turn sound on' : 'Turn sound off');
-    });
-  </script>
 </body>
 </html>
